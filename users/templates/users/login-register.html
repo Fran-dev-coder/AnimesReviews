@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="auth-container">
+    {% if page == 'register' %}
+        <h1>Register Page</h1>
+        <form action="{% url 'register' %}" method="POST" class="auth-form">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Register" class="btn">
+        </form>
+    {% else %}
+        <form action="{% url 'login' %}" method="POST" class="auth-form">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Enter your username" class="input-field">
+            <input type="password" name="password" placeholder="Enter your password" class="input-field">
+            <input type="submit" value="Login" class="btn">
+        </form>
+        <p>Not a user yet? <a href="{% url 'register' %}" class="register-link">Register here</a></p>
+        <p><a href="{% url 'reset_password' %}" class="register-link">Forget Password?</a></p>
+    {% endif %}
+</div>
+
+{% endblock %}

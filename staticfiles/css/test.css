@@ -1,0 +1,276 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.auth-container, .anime-reviews, .submit-review, .recent-activity, .profile-reviews {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.profile-header {
+    text-align: center;
+    color: #333;
+}
+
+.profile-header img {
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.profile-header p {
+    text-align: center;
+    color: #666;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+.favorite-animes {
+    text-align: center;
+}
+
+.favorite-animes a:link, .favorite-animes a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+.favorite-animes a:hover, .favorite-animes a:active {
+    color: #007bff; /* O el color que prefieras para el hover */
+    text-decoration: underline;
+}
+
+.animes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.anime {
+    margin: 10px;
+}
+
+.recent-activity {
+    margin-top: 20px;
+}
+
+.profile-reviews {
+    margin-top: 20px;
+}
+
+.review {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.review h3 a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.review h3 a:hover {
+    color: #007bff;
+}
+
+.review p {
+    color: #333;
+    font-size: 1em;
+}
+
+.review span {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.auth-form, .review-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn-small {
+    padding: 5px 10px;
+    font-size: 0.8em;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+}
+
+.cancel-btn:hover {
+    background-color: #999;
+}
+
+.register-link {
+    text-align: center;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.register-link:hover {
+    color: #0056b3;
+}
+
+p {
+    text-align: center;
+    color: #666;
+    font-size: 1em;
+    margin: 20px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 8px;
+}
+
+.navbar-brand {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 10px;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: #333;
+    margin-top: 20px;
+}
+
+.anime-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.anime-item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.anime-image-container {
+    width: 200px;  /* Ajusta según sea necesario */
+    aspect-ratio: 2 / 3;  /* Mantiene una proporción de 2:3 */
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.anime-image, .anime-details .anime-image {
+    width: 100%;
+    max-width: 300px;  /* Añade una restricción de tamaño máximo */
+    height: auto;
+    object-fit: cover;
+}
+
+.anime-title {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.anime-title:hover {
+    color: #007bff;
+}
+
+.anime-description {
+    color: #666;
+    font-size: 0.9em;
+    margin: 10px 0 20px;
+}
+
+.anime-details {
+    text-align: center;
+}
+
+.category {
+    display: inline-block;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.delete-link {
+    color: red;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.delete-link:hover {
+    color: darkred;
+}

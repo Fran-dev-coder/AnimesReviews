@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .outer-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Cambiamos a flex-start para que el contenido comience desde arriba */
+        min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+        padding-top: 20px; /* Añadimos un poco de espacio en la parte superior */
+    }
+    .explore-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Igualar las proporciones de las columnas */
+        gap: 20px; /* Añadir un pequeño espacio entre las columnas */
+        max-width: 1200px; /* Establece un ancho máximo para el contenedor */
+        width: 100%; /* Asegúrate de que ocupe todo el ancho disponible */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añadir una sombra para mejorar el diseño */
+        padding: 20px; /* Añadir un poco de relleno dentro del contenedor */
+        background-color: #f9f9f9; /* Añadir un fondo claro para mejor visualización */
+    }
+    .explore-container h1 {
+        grid-column: span 2; /* Hacer que el título ocupe ambas columnas */
+        text-align: center; /* Centrar el texto del título */
+    }
+    .explore-container hr {
+        grid-column: span 2; /* Hacer que el hr ocupe ambas columnas */
+    }
+</style>
+<div class="outer-container">
+    <div class="explore-container">
+        <h1>Explore:</h1>
+        <hr>
+        {% if profile %}
+        <div class="followed-list">
+            <h2>People you follow:</h2>
+            {% for review in followed_reviews %}
+            <div>
+                <small><a href="{% url 'profile' review.owner.id %}">@{{review.owner}}</a> {{review.created_at|timesince}}</small>
+                <small>Replied to: <a href="{% url 'anime_detail' review.anime.id %}">{{review.anime}}</a></small>
+                <p>{{review}}...<a href="{% url 'anime_detail' review.anime.id %}">see more</a></p>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="other-user-list">
+            <h2>Users reviews:</h2>
+            {% for review in other_reviews %}
+            <div>
+                <small><a href="{% url 'profile' review.owner.id %}">@{{review.owner}}</a> {{review.created_at|timesince}}</small>
+                <small>Replied to: <a href="{% url 'anime_detail' review.anime.id %}">{{review.anime}}</a></small>
+                <p>{{review}}...<a href="{% url 'anime_detail' review.anime.id %}">see more</a></p>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

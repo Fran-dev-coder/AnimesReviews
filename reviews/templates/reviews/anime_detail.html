@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="anime-details">
+    <h1 class="anime-title">{{anime.title}}</h1>
+    <div class="rating">
+        Average Rating: 
+        <span class="stars"> 
+
+                {% for _ in full_stars %}
+                    <i class="fas fa-star"></i>
+                {% endfor %}
+                {% if half_star %}
+                    <i class="fas fa-star-half-alt"></i>
+                {% endif %}
+                {% for _ in empty_stars %}
+                    <i class="far fa-star"></i>
+                {% endfor %}
+        </span>
+        <p>Rating percentage: <strong>{{percentage}}</strong></p>
+        <p>Total reviews: {{anime.review_count}}</p>
+    </div>
+    
+    <p class="anime-description">{{anime.description}}</p>
+    <img src="{{anime.image.url}}" alt="{{anime.title}}" class="anime-image">
+
+    <form action="" method="POST" style="margin-bottom: 20px;">
+        {% csrf_token %}
+        {% if is_favorite %}
+            <button type="submit" name="favorite" class="btn">Remove from Favorites</button>
+        {% else %}
+            <button type="submit" name="favorite" class="btn">Add to Favorites</button>
+        {% endif %}
+    </form>
+
+    <div class="anime-categories">
+        <h3>Categories:</h3>
+        {% for category in anime.categories.all %}
+            <span class="category"><a href="{% url 'home' %}?q={{category.name}}">{{category.name}}</a></span>
+        {% endfor %}
+    </div>
+    <div class="anime-release-date">
+        <p>First episode: {{anime.release_date}}</p>
+    </div>
+    <br>
+    <div class="anime-reviews">
+        <h2>Reviews:</h2>
+        {% if anime.reviews %}
+            {% for review in reviews %}
+                <div class="review">
+                    <p>
+                        <img src="{{ review.owner.profile_img.url }}" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 10px;">
+                        <a href="{% url 'profile' review.owner.id %}" style="color: #333;text-decoration: none;">
+                            {{ review.owner }}
+                        </a>
+                        - rated {{ review.rating }}
+                    </p>
+                    <span class="centered-text">{{ review.body_text }}</span>
+                    {% if request.user.profile == review.owner %}
+                    <a href="{% url 'delete_review' review.id %}" class="delete-link">Delete</a>
+                    {% endif %}
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No reviews yet for this anime</p>
+        {% endif %}
+    </div>
+    
+    <div class="submit-review">
+        {% if request.user.profile.id in review_user_ids %}
+            <p>You have already submitted your review for this anime</p>
+        {% elif request.user.is_authenticated %}
+            <form action="" method="POST" class="review-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" name="submit_review" value="Send review" class="btn">
+                <input type="button" value="Cancel" onclick="history.back()" class="btn cancel-btn">
+            </form>
+        {% else %}
+            <h3>You must log in to review this anime</h3>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

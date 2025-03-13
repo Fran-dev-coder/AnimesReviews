@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        text-align: center;
+    }
+    .pagination ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+    }
+    .pagination li {
+        margin: 0 5px;
+    }
+    .pagination a {
+        text-decoration: none;
+        padding: 8px 16px;
+        color: #000;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .pagination a:hover {
+        background-color: #ddd;
+    }
+</style>
+
+<div class="home-container">
+    <div class="categories-list">
+        <h2>Categories:</h2>
+        <div>
+            <a href="{% url 'home' %}">All <span>{{anime_count}}</span></a>
+        </div> 
+        {% for category in categories %}
+        <div>
+            <a href="{% url 'home' %}?q={{category.name}}">{{category.name}} <span>{{category.anime_set.all.count}}</span></a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="anime-list">
+        {% for anime in animes %}
+            <div class="anime-item">
+                {% if anime.image %}
+                    <div class="anime-image-container">
+                        <img src="{{anime.image.url}}" alt="{{anime.title}}" class="anime-image">
+                    </div>
+                {% endif %}
+                <h2><a href="{% url 'anime_detail' anime.id %}" class="anime-title">{{anime.title}}</a></h2>
+                {% for category in anime.categories.all %}
+                    <span class="category">{{category}}</span>
+                {% endfor %}
+                <p class="anime-description">{{anime.description}}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if animes.has_other_pages %}
+    <div class="pagination">
+        <ul>
+
+            {% if animes.has_previous %}
+                <li><a href="?q={{q}}&page={{animes.previous_page_number}}" class="button">&#10094; Prev</a></li>
+            {% endif %}
+
+            {% for page in custom_range %}
+                {% if page == animes.number %}
+                <li><a href="?q={{q}}&page={{page}}" style="background-color: beige;">{{page}}</a></li>
+                {% else %}
+                <li><a href="?q={{q}}&page={{page}}" class="button">{{page}}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if animes.has_next %}
+                <li><a href="?q={{q}}&page={{animes.next_page_number}}" class="button">Next &#10095; </a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
+
+{% endblock %}

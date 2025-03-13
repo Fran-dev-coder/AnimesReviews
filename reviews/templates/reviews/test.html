@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+
+    }
+</style>
+
+<div class="home-container">
+    <div class="categories-list">
+        <h2>Categories:</h2>
+        {% for category in categories %}
+            <p>{{ category.name }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="anime-list">
+        {% for anime in animes %}
+            <div class="anime-item">
+                {% if anime.image %}
+                    <img src="{{ anime.image.url }}" alt="{{ anime.title }}" class="anime-image">
+                {% endif %}
+                <h2><a href="{% url 'anime_detail' anime.id %}" class="anime-title">{{ anime.title }}</a></h2>
+                <p class="anime-description">{{ anime.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-header">
+    <h1>Profile of {{profile.username}}</h1>
+    <img src="{{profile.profile_img.url}}" alt="{{profile.username}}">
+    <h2>About me:</h2>
+    <p>{{profile.bio}}</p>
+
+    {% if user.is_authenticated %}
+        {% if request.user.profile != profile %}
+            <form method="POST">
+                {% csrf_token %}
+                {% if is_following %}
+                    <button type="submit" name="unfollow" style="background-color: #f44336">Unfollow</button>
+                {% else %}
+                    <button type="submit" name="follow" style="background-color: #008CBA">Follow</button>
+                {% endif %}
+            </form>
+        {% endif %}
+    {% endif %}
+
+    <div class="favorite-animes">
+        <h3>My favorite animes:</h3>
+        {% if profile.favorites.exists %}
+            <div class="animes-grid">
+                {% for anime in profile.favorites.all %}
+                    <div class="anime">
+                        <p><a href="{% url 'anime_detail' anime.id %}"style="color: black; text-decoration: none;">{{ anime.title }}</a></p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No favorite animes found for this profile.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="recent-activity">
+    <h3>Recent activity:</h3>
+    <div class="profile-reviews">
+        <h2>Reviews by {{profile.username}}</h2>
+        {% if reviews.exists %}
+            {% for review in reviews %}
+                <div class="review">
+                    <h3><a href="{% url 'anime_detail' review.anime.id %}">{{ review.anime.title }}</a></h3>
+                    <p>Rating: {{ review.rating }}</p>
+                    <p>{{ review.body_text }}</p>
+                    <p>Reviewed on: {{ review.created_at }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No reviews found for this profile.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
