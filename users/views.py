@@ -82,7 +82,7 @@ def profileSettings(request):
         if form.is_valid():
             form.save()
             messages.success(request,'Profile saved')
-            return redirect('settings')
+            return redirect('home')
 
     context = {'form':form}
     return render(request,'users/settings.html',context)

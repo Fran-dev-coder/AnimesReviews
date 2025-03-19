@@ -1,7 +1,7 @@
 <nav class="navbar">
     <h2 class="navbar-brand"><a href="{% url 'home' %}">AnimeReviews</a></h2>
     <form action="{% url 'home' %}" method="get">
-        <input type="text" name="q" value="{{q}}" placeholder="Search anime">
+        <input type="text" name="q" value="{{q}}" placeholder="Search anime or category ">
     </form>
     <div class="navbar-links">
         <a href="{% url 'explore' %}">Explore</a>
