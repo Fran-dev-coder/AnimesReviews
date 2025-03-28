@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="profile-header">
-    <h1>Profile of {{profile.user.username}}</h1>
-    <img src="{{profile.profile_img.url}}" alt="{{profile.user.username}}">
+    <h1>Profile of {{user.username}}</h1>
+    <img src="{{profile.profile_img.url}}" alt="{{user.username}}">
     <h2>About me:</h2>
     <p>{{profile.bio}}</p>
 
@@ -39,7 +39,7 @@
 <div class="recent-activity">
     <h3>Recent activity:</h3>
     <div class="profile-reviews">
-        <h2>Reviews by {{profile.user.username}}</h2>
+        <h2>Reviews by {{user.username}}</h2>
         {% if reviews.exists %}
             {% for review in reviews %}
                 <div class="review">
