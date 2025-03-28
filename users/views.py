@@ -46,7 +46,7 @@ def registerUser(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
-            messages.success(request,'Welcome to AnimeReview')
+            messages.success(request, f"Welcome, {user.first_name}, to AnimeReview")
             login(request, user)
             return redirect('settings')
         else:
@@ -69,7 +69,7 @@ def profile(request,id):
     
     is_following =  Follow.objects.filter(follower=profile_login, following=profile).exists() if profile_login else False
 
-    context = {'profile':profile,'reviews':reviews,'is_following':is_following}
+    context = {'profile':profile,'user':profile.user,'reviews':reviews,'is_following':is_following}
     return render(request,'users/profile.html',context)
 
 @login_required(login_url='login')
