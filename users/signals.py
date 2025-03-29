@@ -9,16 +9,13 @@ from .models import Profile
 def createProfile(sender,instance,created,**kwargs):
     if created:
         user = instance
-        profile = Profile.objects.create(
-            user = user,
-            username = user.username,
-            email = user.email,
-            name = user.first_name,
+        Profile.objects.create(
+            user = user
         )
 
         subject = 'Welcome to AnimeReviews'
         message =  f"""
-        Hello {profile.name},
+        Hello {user.first_name},
 
         Thank you for joining AnimeReviews! 🎉 We're thrilled to have you in our community of anime enthusiasts.
 
@@ -40,17 +37,14 @@ def createProfile(sender,instance,created,**kwargs):
              subject,
              message,
              settings.EMAIL_HOST_USER,
-             [profile.email],
+             [user.email],
              fail_silently = False,
         )
 def updateUser(sender,instance,created,**kwargs):
     profile = instance
     user = profile.user
 
-    if created == False :
-        user.first_name = profile.name
-        user.username = profile.username
-        user.email = profile.email
+    if not created:
         user.save()
 
 def deleteUser(sender,instance,**kwargs):

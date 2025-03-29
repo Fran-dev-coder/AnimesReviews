@@ -75,10 +75,10 @@ def profile(request,id):
 @login_required(login_url='login')
 def profileSettings(request):
     profile = request.user.profile
-    form = ProfileForm(instance=profile)
+    form = ProfileForm(instance=profile, user=request.user)
     
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        form = ProfileForm(request.POST, request.FILES, instance=profile, user=request.user)
         if form.is_valid():
             form.save()
             messages.success(request,'Profile saved')
